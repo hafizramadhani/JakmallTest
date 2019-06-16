@@ -32,5 +32,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/list_item_button"
-        android:text="Not Top" />
+        android:text="Go To Top" />
 </RelativeLayout>
