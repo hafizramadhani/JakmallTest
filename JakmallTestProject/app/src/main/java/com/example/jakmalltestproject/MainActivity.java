@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private Button click;
+    //    private Button click;
     private ListView listView;
     private MyListAdapter adapter;
     private Button addButton;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 alertDialog.setTitle("Here is the Joke");
-                alertDialog.setMessage(stringArrayList.get(i));
+                alertDialog.setMessage(shownStringArrayList.get(i));
                 alertDialog.setPositiveButton("Very Funny!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -78,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                startActivity(getIntent());
+                reset();
             }
         });
 
@@ -116,6 +115,20 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void reset(){
+        shownStringArrayList.clear();
+        integerArrayList.clear();
+
+        for (int i = 0; i < 3; i++){
+            shownStringArrayList.add(stringArrayList.get(i));
+            integerArrayList.add(i+1);
+        }
+        addButton.setVisibility(View.VISIBLE);
+        adapter = new MyListAdapter(MainActivity.this, R.layout.list_item, integerArrayList, shownStringArrayList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void addData(){
